@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Ticket } from './ticket.entity';
+import { Column, Entity, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 
 @Entity('user')
 export class User {
@@ -7,11 +8,11 @@ export class User {
     id!: number;
 
     @Column({type: 'varchar', length: 25, nullable: false})
-    title!: string;
+    name!: string;
 
-    @Column({type: 'varchar', length: 15, nullable: false})
-    color!: string;
+    @Column({type: 'varchar', length: 25, nullable: false})
+    email!: string;
 
-    @Column({type: 'varchar', length: 255, nullable: false})
-    icon!: string;
+    @OneToMany(type => Ticket, ticket => ticket.user)
+    tickets?: Ticket[];
 }
