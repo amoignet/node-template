@@ -11,8 +11,8 @@ export const TicketController = (app: Application) => {
    });
 
    ticketRouter.post('/', async (req: Request, res: Response) => {
-       const user = req.body;
-       res.send(await ticketService.create(user));
+       const ticket = req.body;
+       res.send(await ticketService.create(ticket));
    });
 
    ticketRouter.delete('/:id', async (req: Request, res: Response) => {

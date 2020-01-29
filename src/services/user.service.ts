@@ -1,3 +1,4 @@
+import { User } from './../entity/user.entity';
 import { UserRepository } from '../repository/user.repository';
 import { getCustomRepository } from 'typeorm';
 /**
@@ -22,4 +23,9 @@ export class UserService {
     async remove(id: number) {
         return await this.repository.delete(id);
     }
+
+    // async getUserTickets() {
+    //     const userRepository = connection.getRepository(User);
+    //     const users = await userRepository.find({ relations: ['tickets'] });
+    // }
 }
