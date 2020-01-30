@@ -16,3 +16,24 @@ export class Ticket {
     @ManyToOne(type => User, user => user.tickets)
     user?: User;
 }
+
+// async create(user: User) {
+
+//     const ticketsPromises = user.tickets.map((ticket) => {
+//         ticket = this.ticketRepository.create(ticket);
+//         return this.ticketRepository.save(ticket);
+//     });
+
+//     const tickets = await Promise.all(ticketsPromises);
+
+//     user.tickets = tickets;
+//     user = this.repository.create(user);
+//     return await this.repository.save(user);
+// }
+
+// async remove(id: number) {
+
+//     return await this.repository.delete(id);
+// }
+// }
+

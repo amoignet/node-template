@@ -18,20 +18,15 @@ export class UserService {
 
     async create(user: User) {
 
-        const ticketsPromises = user.tickets.map((ticket) => {
-            ticket = this.ticketRepository.create(ticket);
-            return this.ticketRepository.save(ticket);
-        });
-
-        const tickets = await Promise.all(ticketsPromises);
-
-        user.tickets = tickets;
+        let ticket = user.tickets[0];
+        ticket = this.ticketRepository.create(ticket);
+        user.tickets = [ticket];
+        ticket = await this.ticketRepository.save(ticket);
         user = this.repository.create(user);
         return await this.repository.save(user);
     }
 
     async remove(id: number) {
-
         return await this.repository.delete(id);
     }
 }
