@@ -18,6 +18,11 @@ export const UserController = (app: Application) => {
     });
 
     userRouter.post('/', async (req: Request, res: Response) => {
+
+        if (!req.body) {
+            res.sendStatus(400);
+        }
+
         const user = req.body;
         res.send(await userService.create(user));
     });

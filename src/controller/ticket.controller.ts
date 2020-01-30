@@ -1,5 +1,5 @@
 import express, { Router, Request, Response, Application } from 'express';
-import { TicketService } from 'src/services/ticket.service';
+import { TicketService } from './../services/ticket.service';
 
 export const TicketController = (app: Application) => {
 

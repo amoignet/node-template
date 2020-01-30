@@ -1,3 +1,4 @@
+import { TicketController } from './controller/ticket.controller';
 import 'reflect-metadata';
 
 import express from 'express';
@@ -14,6 +15,7 @@ async function startServer() {
 
     // Ajout des différentes route de votre application
     UserController(app);
+    TicketController(app);
 
     // Démarrage du serveur une fois que tout est correctement init
     app.listen(3000, () => console.log('Express server is running'));

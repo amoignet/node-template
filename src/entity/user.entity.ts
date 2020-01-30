@@ -14,5 +14,5 @@ export class User {
     email!: string;
 
     @OneToMany(type => Ticket, ticket => ticket.user)
-    tickets?: Ticket[];
+    tickets!: Ticket[];
 }
