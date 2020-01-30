@@ -8,25 +8,37 @@ import { TicketRepository } from '../repository/ticket.repository';
  * Attention ! Mettez le moins possible d'element dans le controlleur
  */
 export class UserService {
+  private repository = getCustomRepository(UserRepository);
+  private ticketRepository = getCustomRepository(TicketRepository);
+  // Business logic
+  async getAll() {
+    return await this.repository.find({ relations: ['tickets'] });
+  }
 
-    private repository = getCustomRepository(UserRepository);
-        private ticketRepository = getCustomRepository(TicketRepository);
-    // Business logic
-    async getAll() {
-        return await this.repository.find({relations: ['tickets']});
-    }
+  // async create(user: User) {
 
-    async create(user: User) {
+  //     let ticket = user.tickets[0];
+  //     ticket = this.ticketRepository.create(ticket);
+  //     user.tickets = [ticket];
+  //     ticket = await this.ticketRepository.save(ticket);
+  //     user = this.repository.create(user);
+  //     return await this.repository.save(user);
+  // }
 
-        let ticket = user.tickets[0];
-        ticket = this.ticketRepository.create(ticket);
-        user.tickets = [ticket];
-        ticket = await this.ticketRepository.save(ticket);
-        user = this.repository.create(user);
-        return await this.repository.save(user);
-    }
+  async create(user: User) {
+    const ticketsPromises = user.tickets.map(ticket => {
+      ticket = this.ticketRepository.create(ticket);
+      return this.ticketRepository.save(ticket);
+    });
 
-    async remove(id: number) {
-        return await this.repository.delete(id);
-    }
+    const tickets = await Promise.all(ticketsPromises);
+
+    user.tickets = tickets;
+    user = this.repository.create(user);
+    return await this.repository.save(user);
+  }
+
+  async remove(id: number) {
+    return await this.repository.delete(id);
+  }
 }

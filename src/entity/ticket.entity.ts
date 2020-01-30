@@ -13,7 +13,9 @@ export class Ticket {
     @Column({type: Date, nullable: true})
     date!: Date;
 
-    @ManyToOne(type => User, user => user.tickets)
+    @ManyToOne(type => User, user => user.tickets, {
+        onDelete:'CASCADE'
+    })
     user?: User;
 }
 
